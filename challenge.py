@@ -29,7 +29,7 @@ def createColor():
     '''
     returns numpy array representing a color in the image
     '''
-    pixelsStillNeeded = 16384
+    pixelsStillNeeded = 16384 #the number of pixels in 128x128 image
     minRand = 0
     maxRand = 255
     col = 128
@@ -39,21 +39,24 @@ def createColor():
         if (pixelsStillNeeded - 10000) > 0:
             requestNumber =  10000
         else:
-            requestNumber = pixelsStillNeeded
-        print(requestNumber)
+            requestNumber = pixelsStillNeeded #limits random numbers requested since the requests are limited to 10000 random numbers
         pixelsStillNeeded -= requestNumber
         
-        url = createURL(requestNumber,minRand, maxRand, col, base)
+        url = createURL(requestNumber,minRand, maxRand, col, base) 
         response = requests.get(url)
+
         listOfNumbers = decodeResponse(response)
-        
-        listOfNumbers = populateList(requestNumber)
-        midList += listOfNumbers
-    #print(len(midList))
+        midList += listOfNumbers #keeps a list of all the random numbers
+
     finalArray = np.array(midList)
     return np.reshape(finalArray, (128,128))
 
 def populateList(num):
+    '''
+    outputs a list with num random numbers
+    this was used so as not to waste api calls to the website
+    not used in final 
+    '''
     final = []
     for i in range(num):
         ran = random.randint(0,255)
@@ -77,10 +80,10 @@ def createImage(red, blue, green):
 
     img = Image.fromarray(imageArray)
     img.save("randomImage.BMP")
-    img.show() 
+    img.show()
+
+
 r = createColor()
 g = createColor()
 b = createColor()
 createImage(r,b,g)
-print(r.shape, g.shape, b.shape)
-#https://www.random.org/integers/?num=10&min=1&max=6&col=1&base=10&format=plain&rnd=new
