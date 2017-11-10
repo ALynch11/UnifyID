@@ -6,6 +6,15 @@ import numpy as np
 
 
 def createURL(numberOfIntegers, minRand, maxRand, col, base):
+    '''
+    creates a url to use in the api call to random.org
+    takes in as parameters
+    numberOfIntegers - the number of random numbers to be gotten from the website
+    minRand - the minimum number that could possibly be generated
+    maxRand - the maximum number that could possibly be generated
+    col - the number of columns the data should be returned in
+    base - the base of the random number (I ended up using base 2 for the binary numbers)
+    '''
     originalString = "https://www.random.org/integers/?"
     originalString += "num=" + str(numberOfIntegers)
     originalString += "&min=" + str(minRand)
